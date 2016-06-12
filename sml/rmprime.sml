@@ -84,3 +84,36 @@ fun rmprime n b = if not ((gcd n b) = 1) then false
         in
             testseq n seq
         end;
+
+
+(*
+    ndrmprime1 r n test the number n with a random b.
+    r is a Random.rand structure.
+*)
+fun ndrmprime1 r n =
+        let
+            val b = (Random.randInt r mod (n-3)) + 2
+        in
+            rmprime n b
+        end;
+
+
+(*
+    allTrue l = true if l contains only elements true.
+*)
+val allTrue = foldl (fn (x,y) => x andalso y) true;
+
+
+(*
+    for loop
+*)
+fun for 0 f x = []
+ |  for n f x = (f x)::(for (n-1) f x);
+
+
+(*
+    ndrmprime tests n with k random bs.
+    r is a Random.rand structure.
+*)
+fun ndrmprime r k n =
+    allTrue (for k (ndrmprime1 r) n);
