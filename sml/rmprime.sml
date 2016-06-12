@@ -24,13 +24,15 @@ fun testrest n []         = false
 
 
 (*
-    testseq n (1,...,1) = true
-    testseq n ($,...,$,n-1,1,%,...,%) = true where $ is not 1 or n-1
-                                               and % are arbitrary
+    testseq n (1,%,...,%) = true
+    testseq n ($,...,$,n-1,1,%,...,%) = true
+    with $ is not 1 or n-1
+        and % are arbitrary
     testseq n other = false
 *)
 fun testseq n []      = false
- |  testseq n (x::xs) = (x = 1) orelse testrest n (x::xs);
+ |  testseq n (1::xs) = true
+ |  testseq n xs      = testrest n xs;
 
 
 (*
