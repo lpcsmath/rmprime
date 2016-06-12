@@ -92,9 +92,9 @@ fun rmprime n b = if not ((gcd n b) = 1) then false
 *)
 fun ndrmprime1 r n =
         let
-            val b = (Random.randInt r mod (n-3)) + 2
+            val b = if (n > 3) then (Random.randInt r mod (n-3)) + 2 else 2
         in
-            rmprime n b
+            (n = 2) orelse (n = 3) orelse (rmprime n b)
         end;
 
 
