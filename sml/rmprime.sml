@@ -70,8 +70,8 @@ fun gcd a 0 = a
 (*
     This is a single Rabin-Miller primality test of n with a given b
     such that 1 < b < n.
-    rmprime n b = true iff n is prime or n is not prime
-                           with a probability of < 1/2.
+    rmprime n b = true if n is prime or n is not prime
+                          with a probability of < 1/2.
 *)
 fun rmprime n b = if not ((gcd n b) = 1) then false
     else
