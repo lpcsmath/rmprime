@@ -1,2 +1,2 @@
 # Erlang
-.beam
+*.beam
