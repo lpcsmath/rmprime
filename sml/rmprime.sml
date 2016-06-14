@@ -12,11 +12,11 @@ end = struct
         rs n = (r,s) such that s is odd and 2^r * s = n.
     *)
     fun rs n =
-            let
-                fun rsaux (r,s) = if (s mod 2 = 0) then rsaux (r + 1,s div 2) else (r,s)
-            in
-                rsaux (0,n)
-            end
+        let
+            fun rsaux (r,s) = if (s mod 2 = 0) then rsaux (r + 1,s div 2) else (r,s)
+        in
+            rsaux (0,n)
+        end
 
 
     (*
@@ -56,11 +56,11 @@ end = struct
          with 2^r * s = n.
     *)
     fun mkseq n b =
-            let
-                val (r,s) = rs (n - 1)
-            in
-                rev (mkseqaux n b s r)
-            end
+        let
+            val (r,s) = rs (n - 1)
+        in
+            rev (mkseqaux n b s r)
+        end
 
 
     (*
@@ -78,13 +78,13 @@ end = struct
              with a probability of < 1/2
         else n is not prime.
     *)
-    fun prime1 n b = if not ((gcd n b) = 1) then false
+    fun prime1 n b =
+        if (gcd n b) = 1
+        then
+            testseq n (mkseq n b)
         else
-            let
-                val seq = mkseq n b
-            in
-                testseq n seq
-            end
+            false
+
 
 
     (*
@@ -92,11 +92,11 @@ end = struct
         r is a Random.rand structure.
     *)
     fun ndprime1 r n =
-            let
-                val b = if (n > 3) then (Random.randInt r mod (n-3)) + 2 else 2
-            in
-                (n = 2) orelse (n = 3) orelse (prime1 n b)
-            end
+        let
+            val b = if (n > 3) then (Random.randInt r mod (n-3)) + 2 else 2
+        in
+            (n = 2) orelse (n = 3) orelse (prime1 n b)
+        end
 
 
     (*
