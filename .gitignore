@@ -1,2 +1,6 @@
 # Erlang
 *.beam
+
+# Cargo
+Cargo.lock
+/target/
