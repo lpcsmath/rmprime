@@ -1,5 +1,5 @@
 -module(rmprime).
--export([prime/2,ndprime/2]).
+-export([prime/1,ndprime/2,ndprime1/1,prime1/2]).
 -import(ebs,[ebs/2,ebsmod/3]).
 
 %
@@ -71,7 +71,7 @@ gcd(A,B) -> gcd(B,A rem B).
 %         with a probability of < 1/2
 %    else n is not prime.
 %
-prime(N,B) ->
+prime1(N,B) ->
     case gcd(N,B) of
         1 -> Seq = mkseq(N,B),
              testseq(N,Seq);
@@ -87,7 +87,7 @@ ndprime1(N) ->
             (N > 2) -> random:uniform(N-2) + 1;
             true    -> 2
         end,
-    (N =:= 2) or prime(N,B).
+    (N =:= 2) or prime1(N,B).
 
 
 %
@@ -97,8 +97,14 @@ allTrue(L) -> lists:all(fun (X) -> X end,L).
 
 
 %
-%   ndprime tests N with N random bs.
+%   ndprime tests N with K random bs.
 %
 ndprime(K,N) ->
     L = lists:map(fun (_) -> ndprime1(N) end, lists:seq(1,K)),
     allTrue(L).
+
+
+%
+%   prime tests N with 20 random bs.
+%
+prime(N) -> ndprime(20,N).
