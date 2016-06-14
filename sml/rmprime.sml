@@ -121,6 +121,7 @@ end = struct
 
 
     (*
+        prime tests n with 20 random bs.
     *)
     fun prime n =
         let
