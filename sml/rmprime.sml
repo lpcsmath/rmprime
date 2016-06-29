@@ -4,7 +4,7 @@ use "ebs.sml";
 structure RMPRIME : sig
     val prime1: int -> int -> bool
     val ndprime1: Random.rand -> int -> bool
-    val ndprime: Random.rand -> int -> int -> bool
+    val ndprime: int -> int -> bool
     val prime: int -> bool
 end = struct
 
@@ -88,7 +88,7 @@ end = struct
 
 
     (*
-        ndprime1 r n tests the number n with a random b.
+        ndprime1 n r tests the number n with a random b.
         r is a Random.rand structure.
     *)
     fun ndprime1 r n =
@@ -116,18 +116,17 @@ end = struct
         ndprime tests n with k random bs.
         r is a Random.rand structure.
     *)
-    fun ndprime r k n =
-        allTrue (for k (ndprime1 r) n)
+    fun ndprime k n =
+        let
+            val r = Random.rand (IntInf.toInt ((Time.toSeconds (Time.now ())) mod 1073741823),0)
+        in
+            allTrue (for k (ndprime1 r) n)
+        end
 
 
     (*
         prime tests n with 20 random bs.
     *)
-    fun prime n =
-        let
-            val r = Random.rand (IntInf.toInt ((Time.toSeconds (Time.now ())) mod 1073741823),0)
-        in
-            ndprime r 20 n
-        end
+    fun prime n = ndprime 20 n
 
 end
